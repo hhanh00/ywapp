@@ -1,0 +1,23 @@
+{
+  "index": "YWallet",
+  "installation": "Installation",
+  "getting_started": "Getting Started",
+  "security": "Security",
+  "balance": "Account Info",
+  "transacting": "Transacting",
+  "contacts": "Contacts",
+  "history": "History",
+  "pools": "Pools",
+  "messages": "Messages",
+  "sync": "Synchronization",
+  "accounts": "Account Manager",
+  "backup": "Backup",
+  "coldwallet": "Cold Wallet",
+  "market": "Market Insights",
+  "multipay": "MultiPay",
+  "tools": "Recovery Tools",
+  "settings": "Settings",
+  "audit": "Security & Audit",
+  "halo2": { "display": "hidden" },
+  "qr": { "display": "hidden" }
+}
