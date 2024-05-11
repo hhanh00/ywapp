@@ -1,0 +1,117 @@
+import { Callout } from "nextra/components"
+
+Zero Knowledge Proofs are the "secret sauce" of 
+Zcash and possibly where it differs from other
+private coins the most.
+
+It may be a new concept therefore it is worth
+spending some time getting to know them.
+
+## Zero Knowledge Proofs
+
+Let's say you have make calculation, starting
+from a value $x$. Let's say for example
+
+$$x^3 + x + 5$$
+
+And the value of $x$ you use is 3[^1].
+
+The result is $3^3 + 3 + 5 = 27 + 3 + 5 = 35$.
+
+Consider the challenge:
+
+<Callout>
+Prove that we know $x$ such as
+$$x^3 + x + 5 = 35$$
+
+but without revealing $x = 3$.
+</Callout>
+
+That's the problem what Zero Knowledge Proofs solve!
+
+## Formal Definition
+
+You take a computation $F(x)$, here $F(x) = x^3+x+5$.
+
+The ZKP program transforms F into two new functions P and V,
+such as:
+
+### Proving Program P
+
+P takes x, c and returns a "proof" p: $P(x, c) = p$.
+The person who wants to prove knowledge of x calculates P(3, 35) 
+to get the proof p.
+
+### Verification Program V
+
+The verifier, in this case every full node that checks the
+transaction, runs the Verification Program V that takes
+p and c as inputs and outputs a true/false value.
+
+The program V returns true if and only if the proof checks
+out relative of c.
+
+$$V(p, 35) = \text{true}$$
+
+## Using a proving system
+
+The proving system can do more than work with a single input
+value $x$. It supports multiple secret values and multiple
+assertions.
+
+In Zcash, the secret values are for example the output
+note address and value (x), and the parameters (c) are
+the hashes.
+
+The sender uses the proving system to generate a proof
+that he knows the values of the address and the amount
+such as the commitment that he substituted for the output note
+matches.
+
+If he tries to be dishonest and change the value of the note,
+the proof will not check out and the verifier will reject
+the transaction[^2].
+
+## Zero Knowledge Statements
+
+Let's see what the ZKP statements enforce:
+- the nullifier is calculated properly from note commitment
+(and other hidden values);
+- the transaction inputs spend notes that were created
+before. With transparent transactions, it was checked
+by looking up the input transaction id and output index
+in the database. With shielded transactions, the ZKP
+states that the nullifier corresponds to a previous commitment;
+- note output address is calculated correctly
+- the transaction input and output values are equal[^3][^4].
+
+> At this point, we have a system that encrypts and hides
+the transaction inputs and outputs while allowing verifiers
+to check that the consensus rules were followed.
+
+## Footnotes
+
+[^1]: Any calculation made by a computer
+is eventually just a combination of arithmetic
+operations. We don't lose generality by using
+this simple expression.
+[^2]: It also relies on the fact that it is impossible
+to find another note that would have the same commitment
+by the binding property of the hash function.
+[^3]: In reality, the values are *not* equal because
+the transaction can have transparent parts as well.
+For instance, a transaction can have transparent inputs
+and shielded outputs. In this case, we would have shielded
+outputs that exceeds the shielded inputs. The system
+checks that the sum of all inputs (transparent & shielded)
+equals the sum of all outputs (transparent & shielded) plus
+the mining fees.
+[^4]: Input and output amounts are more complex that explained
+here. They have a *value commitment* that works similarly to
+note commitments but take only the amount. The ZKP guarantees
+that the value commitment is computed correctly.
+These commitments have an extra property. They preserve
+additive equalities. In other words, $V(a) + V(b) = V(a + b)$.
+Then even though the verifier only has value commitments to work with,
+they can check that the sum of inputs/outputs values are equal
+using the value commitments.

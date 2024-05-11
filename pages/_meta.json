@@ -19,5 +19,6 @@
   "settings": "Settings",
   "audit": "Security & Audit",
   "halo2": { "display": "hidden" },
-  "qr": { "display": "hidden" }
+  "qr": { "display": "hidden" },
+  "tech": "Technology"
 }

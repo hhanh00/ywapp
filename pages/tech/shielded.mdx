@@ -1,0 +1,90 @@
+import { Callout } from "nextra/components"
+
+Transparent Transactions are relatively easy to 
+understand and implement but they have a 
+significant issue: 
+
+> The blockchain contains all the Transactions
+in clear. It is possible to follow
+any address and analyze its history.
+
+Privacy coins, such as Zcash, aim to prevent
+blockchain analysis by hiding addresses and amounts.
+
+But, how can they do it while keeping the consistency
+rules of transparent transactions?
+
+First, transaction outputs are *encrypted* with a key
+that only the recipient (and the sender) knows.
+However, once the output is encrypted, no one else
+can read the output. The address and the amounts are 
+perfectly hidden but now validators have no obvious
+mechanism for verifying that the transaction is
+right.
+
+## Commitments
+
+So, in place of the transaction outputs, we have
+*note commitments*.
+
+A note commitment is a hash of the address and the value
+of the note[^1].
+
+This hash has two very important properties:
+- it *hides* the address and the value of the note.
+Knowing the hash gives no information about the note itself;
+- it *commits* to the note. The hash function is designed
+so that it is practically impossible with our technology
+to find another note that has the same hash.
+
+## Nullifiers
+
+Then, in place of the transaction inputs, we have *note
+nullifiers*.
+
+These are also hashes but calculated from the note commitment
+and a secret key only known by the sender.
+
+<Callout>
+Commitments and Nullifiers are different for the same note!
+It is actually extremely unlikely we will ever see a commitment
+equal to a nullifier. Even so, it would not mean that they are
+coming from the same note.
+</Callout>
+
+## Validation Process
+
+**If the sender is honest**, a transaction can be verified
+by running the following algorithm[^2]:
+- Check that the nullifier was not used previously
+- Check the signatures on the inputs
+
+That's it! Validators can no longer verify that the transaction
+has less output value that input value, nor that the 
+output address is well-formed, because inputs and outputs
+are now *hashes*, and hashes perfectly hide all the properties
+of the note.
+
+Validators can only check that the inputs are unspent,
+because there is just one nullifier for a given note.
+If the sender uses the same note twice, they would use
+the same nullifier twice too.
+
+Now, validators can check that the transaction is not
+*double spending* but they do not know what output
+was spent.
+
+However, obviously we cannot build a cryptocurrency
+based on the honest behavior of every participants.
+
+In the next section, we will see how Zcash makes sure
+that participants *MUST* behave properly.
+
+## Footnotes
+
+[^1]: Other elements are included in the hash
+that make it unique even if the address and amount
+are the same between two notes. We'll not discuss
+these because they are not fundamental at our level
+of understanding.
+[^2]: Some details are omitted for simplicity.
