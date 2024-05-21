@@ -1,16 +1,18 @@
 
 Halo 2 is the latest proving system used by Zcash.
-It does not require a [trusted setup](/halo2)
+It does not require a trusted setup[^1].
 and has optimizations
-for [lookup data](/halo2).
+for [lookup data](/halo2/lookup).
 
 The following sections are an
-[introduction to zero knowledge proofs](/halo2/intro)
-(ZKP). It gives a high level understanding
-of the purpose of ZKP and how they are
-[used in Zcash](/halo2).
+[introduction to Halo 2](/halo2/intro). 
 
-Then we will illustrate Halo 2 programmation via some
-[simple examples](/halo2)
-and a
-[comparison between with traditional programmation](/halo2).
+We will illustrate Halo 2 programmation via some
+[simple examples](/halo2).
+
+[^1]: Sapling, the previous Zcash shielded pool
+uses the Groth16 proving system. It creates
+smaller proofs than Halo 2 but requires the
+setup of a common reference string via a 
+multi party ceremony. At least one of the participants
+MUST destroy the s

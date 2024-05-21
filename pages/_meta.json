@@ -14,11 +14,12 @@
   "backup": "Backup",
   "coldwallet": "Cold Wallet",
   "market": "Market Insights",
+  "swap": "Swaps",
   "multipay": "MultiPay",
   "tools": "Recovery Tools",
   "settings": "Settings",
   "audit": "Security & Audit",
-  "halo2": { "display": "hidden" },
   "qr": { "display": "hidden" },
-  "tech": "Technology"
+  "tech": "Technology",
+  "halo2": "Halo 2"
 }
