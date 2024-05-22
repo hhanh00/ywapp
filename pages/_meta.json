@@ -21,5 +21,6 @@
   "audit": "Security & Audit",
   "qr": { "display": "hidden" },
   "tech": "Technology",
-  "halo2": { "display": "hidden" }
+  "halo2": { "display": "hidden" },
+  "plonk": { "display": "hidden" }
 }
