@@ -1,0 +1,112 @@
+import { Callout } from "nextra/components"
+
+This section is a "gentle" introduction
+to the cryptography used in Zcash such as
+hashes, commitments, elliptic curve cryptography,
+and zero knowledge proofs.
+
+Feel free to skip this since you do not
+need to know any of that to use Ywallet.
+Otherwise, let's get started with some history.
+
+## Basic Cipher
+
+Cryptography is a very old science. The Romans
+were using it but it probably dates from far
+before them.
+
+If you ever felt the need to exchange a message
+with someone without other people being able
+to read it, then you needed cryptography.
+
+Like most of the examples, we'll use Alice and Bob
+as the two actors in our hypothetical scenarios.
+
+Alice wants to give a message to Bob but she does
+want anyone but Bob to read it even if it gets
+intercepted.
+
+She invents a system where she replaces each
+letter of the original message (the plaintext)
+by moving it down the alphabet: A becomes B,
+B becomes C, etc. finally Z becomes A.
+
+HELLO BOB becomes IFMMP CPC (the ciphertext). 
+If Charlie reads the ciphertext, he will not
+understand anything. Bob decrypts the message
+by moving each letter up one rank.
+
+Even though this is a simple encryption method,
+it shows the properties of real encryption:
+
+- the plaintext is encrypted into the ciphertext
+- the ciphertext is decrypted back into the plaintext
+- both Alice and Bob must agree on the encryption method
+
+Typically, encryption methods (called ciphers) have
+a parameter, so that the same cipher can be used
+by other people. For example, Alice may choose to
+shift the letters by 3 instead of 1: A becomes D, etc.
+
+If Bob does not know that Alice used 3 instead of 1,
+he would not recover the original message. That parameter
+is critical in the decryption process. Ideally,
+a cipher should be designed so that knowing the **KEY**
+is required.
+
+## Digests
+
+Let's assume for a minute that our cipher is good[^1].
+Charlie can intercept messages but he cannot understand
+them. However, he can still cause trouble by modifying
+it and passing it on to Bob. Bob decrypts the message
+and may believe that it came unaltered from Alice.
+
+To prevent that, Alice should add a *digest* to the 
+ciphertext[^2]. The digest is a value that is computed
+from the content of the ciphertext and the key 
+such as any modification in the ciphertext will 
+lead to a different digest. An attacker cannot
+forge a new digest because they need the key as well.
+
+These digests typically involve using *hash functions*.
+
+## Hash Function
+
+A Hash Function takes a message and derives a 
+fixed length output value (16, 32, 64 bytes): the hash.
+
+To be cryptographically worthy, a hash function must have
+the following properties:
+
+- The hash is "impredictable". Even the slightest
+change in the message will lead to a completely
+different hash;
+- "Reversing" the function, i.e. finding another
+message that has the same hash is impossible[^3];
+- Even finding *any* two messages that have the same hash
+is impossible.
+
+Hash Functions are extremely useful. For example,
+they can serve as a proxy for a message[^4].
+
+## Footnotes
+
+[^1]: Our cipher is pretty bad. First, the key 
+can only take 25 different values: 1 to 25. Shifting
+by 26 letters will bring it back to the original message
+since there are only 26 letters in the alphabet.
+Second, each letter is always replaced by the same letter
+in the entire message. If Charlie knows the language,
+he can easily figure out the substitutions by looking
+for patterns in the ciphertext. For example repeated
+letters like IF**MM**P are likely going to be L, M, S.
+It cannot be M because a letter can be substituted by itself...
+[^2]: The digest could also be calculated over the plaintext.
+[^3]: Impossible in the pragmatic sense. It will take trillions
+of years or longer...
+[^4]: Instead of signing the full message, you can 
+sign its hash. The message cannot be tampered without
+modifying the hash. Signing a hash means "I certify that I wrote the message
+that has a hash value of XYZ". It is as good as saying: 
+"I certify I wrote this whole message"

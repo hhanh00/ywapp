@@ -1,107 +1,173 @@
 import { Callout } from "nextra/components"
 
-$F_5$ = 0, 1, 2, 3, 4
+## Why use cryptography?
+    ### Decentralized system
 
-1, 3, 2, 4
-1, 6, 6, 16
-1, 1, 1, 1
+> Decentralized systems: where the answer to
+'Who’s responsible for this mess?' is 'Everyone
+and no one at the same time.
 
-x^3 + x + 2 = 64 + 4 + 2 = 70 = 0
+In the traditional system, banks and money exchangers
+are tasked with managing users' assets. When you
+make a deposit, your funds become the property 
+of the bank. The bank emits a "I Owe You" (IOU)
+that is essentially a debt to you. After, it is
+allowed to use your funds in many ways it sees fit.
 
-1 + 1 = 2
-8 + 2 = 10
-27 + 3 = 30
-64 + 4 = 68
+Many customers are under the impression that the bank
+*keeps* their funds in a vault somewhere and that 
+they can come back and withdraw them at any time.
+This is not true at all. Only a small fraction is
+available to cover the *estimated* amount of withdrawals
+from daily customers. When too many people decide
+to take their money out at the same time, the bank
+runs out of cash.
 
-a + b + o + ab + c = 0
+Decentralized systems are designed to block a
+single party from having the ability to operate on
+your funds.
 
-0   0   -1   1   0   with a1 = b1 = x => o1 = x^2
-0   0   -1   1   0   with a2 = x, b2 = o1 => o2 = x^3
-1   1   -1   0   2   with a3 = x, b3 = o2 => o3 = x^3 + x + 2
+In decentralized system, computers running the
+node software agree on a set of hard rules (consensus).
+If a node attempts to deviate from the consensus,
+the system will reject it.
+
+<Callout>
+Imagine a government where every decision has to be 
+approved by the majority of politicians. Every 
+politician is a robot that follows the same program.
+</Callout>
+
+Obviously, it is critical that the program is bug-free
+since all the nodes follow the same program.
+
+But the system is resilient to attacks once the majority
+is large enough. If a malicious node tries to suggest
+to deviate from the rules, it will be automatically voted
+out.
+
+    ### Identity: What makes me special?
+> Muffin: "I don't have to, aunt Chili, I'm special."
+
+When you remove the central authority in charge of maintaining
+customers and accounts, you have a new challenge.
+
+How does the system recognize that someone is the *owner*
+of funds and that he is authorized to spend but not other people?
+
+There must be a way to differentiate users without requiring them
+to register in a central database.
+
+<Callout>
+Cryptocurrencies use Cryptography. Cryptography use numbers.
+</Callout>
+
+    ### Integers and Finite Field
+> 0, 1, 2, are ok. 0x0c5321e71fea98112607e1b6a2935ab346697d0f98e208561ed2ad0bb831217b
+is cooler.
+
+All the numbers that cryptography use are integers. We
+will not see $\pi$ or $\sqrt{2}$, just integers like 0, 1, 2, etc.
+
+It is not that limitating since there is an infinity of them.
+In fact, there is *too many* of them. No real device can store
+an infinite number! 
+
+We'll deal with integers in a limited range: from 0 to p-1, where
+p is a sufficiently large number. Typically, p has around 256 bits.
+That gives us room for about $10^{77}$ different numbers.
+
+<Callout>
+$2^{256}$ is an extremely large number. To give a sense 
+of its magnitude, consider that $2^{256}$ grains of sand
+will take the volume 2 million galaxies the size of the Milky
+Way.
+</Callout>
+
+    ### Secrets
+
+Numbers[^1] serves as the proof of identity. If you 
+randomly pick a number as your **SECRET**
+the odds that you choose the same
+number as someone else is astronomically low. It would
+like choosing the same grain of sand in a million galaxies.
+Of course, this assumes that you really *randomly* pick
+the number. From experience, humans are *very* bad at
+making random decisions. Given a large range, they will
+likely favor the lower part or the higher part. It is also
+why passwords tend to repeat.
+
+<Callout>
+Always use a random number generator. Don't try
+to pick it yourself.
+</Callout>
+
+And don't try to remember the secret because one day
+you will forget and your funds will be *LOST*.
+
+    ### Hash Functions
+> Back when PHP had less than 100 functions
+and the function hashing mechanism was strlen()...
+
+These secret numbers are extremely important because
+1. you need them to spend your funds;
+1. anyone who knows them can spend your funds.
+
+You should keep them in a safe place and make sure
+that others cannot get access without your permission.
+
+But then, how can you use them more than once?
+
+After all, when you show your identification card
+to the bank teller, he sees it and theorically could
+make a copy. In practice that's not feasible because
+of the security measures like the hologram or the
+special paper but a cryptographic secret is just
+a number. Numbers can be copied in a fraction of second.
+
+<Callout type="warning">
+If you input your secret into some malware, it can
+be copied before you can realize it.
+</Callout>
+
+Therefore we need a way to prove that you have the
+secret *without* actually showing it!
+
+<Callout>
+The system does not care what your secret is.
+The only thing that matters is that you know what it is.
+</Callout>
+
+    ### Commitments
+> Why did the cryptographic commitment go to therapy? Because
+it had trust issues and couldn’t open up!
+
+    ### Statements
+> "Logic is the beginning of wisdom, not the end." – Spock, "Star Trek VI: The Undiscovered Country"
+
+    ### ZKP
+> Zero-knowledge proofs: because sometimes proving you know something without saying anything is the best way to win an argument.
+
+### Footnotes
+
+[^1]: More precisely field elements since they are integers
+that belong to a finite field.
 
 
-
-
-o3 = 0
-
-(x-1)*(x-2)
--1*-2 = 2 
-P1 = 3(x-1)(x-2) = 3x^2 -9x + 6 = 3x^2 + x + 1
-0 => 1, 1 => 5 = 0, 12+2+1 => 15 = 0
-
-P2 = x(x-2) = x^2-2x 
-P2(1) = -1 = 
-P2 = -x(x-2) = -x^2 + 2x
-0 => 0, 1 => -1 + 2 = 1, 2 => -4 + 4 = 0
-
-P3 = x(x-1)
-P3(2) = 2*1 = 2
-P3 = 3x(x-1) = 3x^2 - 3x = 3x^2 + 2x
-0 => 0, 1 => 3 + 2 = 5 = 0, 2 => 3*4 + 4 = 12 + 4 = 1
-
-
-L(0) = 0
-L(1) = 0
-L(2) = 1
-
-L(x) = aP1(x) + bP2(x) + cP3(x)
-L(0) = aP1(0) + bP2(0) + cP3(0) = a
-L(1) = aP1(1) + bP2(1) + cP3(1) = b
-L(2) = aP1(2) + bP2(2) + cP3(2) = c
-
-a = 0, b = 0, c = 1
-
-L(x) = P3 = 3x^2 + 2x
-
-R(x) = L(x)
-
-O = [-1 -1 -1] = -P1 -P2 -P3 = [-3 -1 -1] + [1 -2 0] + [-3 -2 0]
-= [0 0 -1] = -1
-O(x) = -1
-
-M = P1 + P2 = [3 1 1] + [-1 2 0] = [2 3 1] = 2x2 + 3x + 1
-0 => 1,
-1 => 2+3+1 = 1
-2 => 8+6+1 = 15 = 0
-
-C = 2*P3 = 6x^2 + 4x = x^2 - x
-
-L(x).a(x) + R(x).b(x) + O(x).c(x) + C(x)
-
-x = 4
-a(0) = 4
-a(1) = 4
-a(2) = 4
-
-a(x) = 4
-
-b(0) = 4 = -1
-b(1) = 16 = 1
-b(2) = 4 = -1
-
-b(x) = -P1 + P2 -P3 = [-3 -1 -1] + [-1 2 0] + [-3 -2 0]
-= [-2 -1 -1] = -2x^2 -x -1
-b(0) = -1
-b(1) = -2 -1 -1 = -4 = 1
-b(2) = 2 -2 - 1 = -1
-
-b(x) = -2x^2 -x -1
-
-c(0) = 16 = 1
-c(1) = 64 = -1
-c(2) = 0
-c(x) = P1 - P2 = [3 1 1] + [1 -2 0] = [-1 -1 1]
-= -x^2 -x + 1
-0 => 1
-1 => -1 - 1 + 1 = 1
-2 => -4 -2 + 1 = -5 = 0
-
-(3x^2+2x)*(4) + (3x^2+2x)*(-2x^2-x-1) + (-1)*(-x^2-x+1)
-
-H = 3x^4 + x^3 + x^2
-
-a1 = b1 = a2 = a3
-o1 = b2
-o2 = b3
-o3 = 0
-
+## Sudoku
+    ### Secrets
+    ### Statement
+## ZKP Step 1: Arithmetization
+    ### Gates and Wires
+    ### Constraint System
+    ### Row Constraints
+    ### Copy Wires
+    ### Permutation Constraints
+## ZKP Step 2: Polynomials
+    ### Transformation to Polynomials
+    ### Accumulator
+    ### Polynomial Commitment
+    ### Blind Evaluation
+    ### Kate Commitments
+    ### Inner Proof Arguments
+## Verification

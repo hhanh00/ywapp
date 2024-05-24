@@ -22,5 +22,6 @@
   "qr": { "display": "hidden" },
   "tech": "Technology",
   "halo2": { "display": "hidden" },
-  "plonk": { "display": "hidden" }
+  "plonk": { "display": "hidden" },
+  "crypto": { "display": "hidden" }
 }
