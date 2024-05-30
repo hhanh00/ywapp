@@ -1,0 +1,8 @@
+{
+    "tree": "Merkle Tree",
+    "path": "Merkle Path",
+    "root": "Tree Root",
+    "proof": "Merkle Proof",
+    "witness": "Witness",
+    "bridge": "Bridge"
+}

@@ -4,31 +4,28 @@ import { Callout } from "nextra/components"
     ### Decentralized system
 
 > Decentralized systems: where the answer to
-'Who’s responsible for this mess?' is 'Everyone
-and no one at the same time.
+"Who’s responsible for this mess?" is "Everyone
+and no one at the same time".
 
-In the traditional system, banks and money exchangers
-are tasked with managing users' assets. When you
-make a deposit, your funds become the property 
-of the bank. The bank emits a "I Owe You" (IOU)
-that is essentially a debt to you. After, it is
-allowed to use your funds in many ways it sees fit.
+Banks and money exchangers manage users' assets in the traditional system. When you
+make a deposit, your funds become the bank's property. The bank emits an "I Owe You" (IOU)
+that is essentially a debt to you. Afterward, it can use your funds in many ways it sees fit.
 
 Many customers are under the impression that the bank
 *keeps* their funds in a vault somewhere and that 
 they can come back and withdraw them at any time.
-This is not true at all. Only a small fraction is
+It is not true at all. Only a tiny fraction is
 available to cover the *estimated* amount of withdrawals
 from daily customers. When too many people decide
-to take their money out at the same time, the bank
+to take their money out simultaneously, the bank
 runs out of cash.
 
 Decentralized systems are designed to block a
 single party from having the ability to operate on
 your funds.
 
-In decentralized system, computers running the
-node software agree on a set of hard rules (consensus).
+In a decentralized system, computers, by running the
+node software, agree on strict rules (consensus).
 If a node attempts to deviate from the consensus,
 the system will reject it.
 
@@ -38,16 +35,17 @@ approved by the majority of politicians. Every
 politician is a robot that follows the same program.
 </Callout>
 
-Obviously, it is critical that the program is bug-free
+The program must be bug-free
 since all the nodes follow the same program.
 
-But the system is resilient to attacks once the majority
+However, the system is resilient to attacks once the majority
 is large enough. If a malicious node tries to suggest
 to deviate from the rules, it will be automatically voted
 out.
 
     ### Identity: What makes me special?
 > Muffin: "I don't have to, aunt Chili, I'm special."
+
 
 When you remove the central authority in charge of maintaining
 customers and accounts, you have a new challenge.
@@ -66,19 +64,19 @@ Cryptocurrencies use Cryptography. Cryptography use numbers.
 > 0, 1, 2, are ok. 0x0c5321e71fea98112607e1b6a2935ab346697d0f98e208561ed2ad0bb831217b
 is cooler.
 
-All the numbers that cryptography use are integers. We
+All the numbers that cryptography uses are integers. We
 will not see $\pi$ or $\sqrt{2}$, just integers like 0, 1, 2, etc.
 
-It is not that limitating since there is an infinity of them.
-In fact, there is *too many* of them. No real device can store
+It is not that limiting since there is an infinity of them.
+In fact, there are *too many* of them. No actual device can store
 an infinite number! 
 
-We'll deal with integers in a limited range: from 0 to p-1, where
+We'll deal with integers in a limited range, from 0 to p-1, where
 p is a sufficiently large number. Typically, p has around 256 bits.
-That gives us room for about $10^{77}$ different numbers.
+That gives us room for around $10^{77}$ different numbers.
 
 <Callout>
-$2^{256}$ is an extremely large number. To give a sense 
+$2^{256}$ is a huge number. To give a sense 
 of its magnitude, consider that $2^{256}$ grains of sand
 will take the volume 2 million galaxies the size of the Milky
 Way.
@@ -86,15 +84,15 @@ Way.
 
     ### Secrets
 
-Numbers[^1] serves as the proof of identity. If you 
-randomly pick a number as your **SECRET**
+Numbers[^1] serve as the proof of identity. If you 
+randomly pick a number as your **SECRET**,
 the odds that you choose the same
 number as someone else is astronomically low. It would
-like choosing the same grain of sand in a million galaxies.
+be like choosing the exact grain of sand in a million galaxies.
 Of course, this assumes that you really *randomly* pick
 the number. From experience, humans are *very* bad at
-making random decisions. Given a large range, they will
-likely favor the lower part or the higher part. It is also
+making random decisions. Given an extensive range, they will
+likely favor the lower or higher parts. It is also
 why passwords tend to repeat.
 
 <Callout>
@@ -103,7 +101,7 @@ to pick it yourself.
 </Callout>
 
 And don't try to remember the secret because one day
-you will forget and your funds will be *LOST*.
+you will forget, and your funds will be *LOST*.
 
     ### Hash Functions
 > Back when PHP had less than 100 functions
@@ -119,24 +117,52 @@ that others cannot get access without your permission.
 But then, how can you use them more than once?
 
 After all, when you show your identification card
-to the bank teller, he sees it and theorically could
-make a copy. In practice that's not feasible because
-of the security measures like the hologram or the
-special paper but a cryptographic secret is just
-a number. Numbers can be copied in a fraction of second.
+to the bank teller, he sees it and can
+make a copy. In practice, that's not feasible because
+of security measures like holograms or 
+special paper, but a cryptographic secret is just
+a number. A program can copy a number in a fraction of a second.
 
 <Callout type="warning">
 If you input your secret into some malware, it can
 be copied before you can realize it.
 </Callout>
 
-Therefore we need a way to prove that you have the
-secret *without* actually showing it!
+Therefore, we need a way to prove that you have the
+secret *without* showing it!
 
 <Callout>
 The system does not care what your secret is.
 The only thing that matters is that you know what it is.
 </Callout>
+
+Enter Cryptographic Hash Functions (CHF).
+
+These functions take one input: a series of bytes of any length.
+It could be even empty. They output a fixed number of bytes
+(depending on the CHF, it is 32, 64, 128, etc.)
+
+The great thing about them is that the output "mixes" the input
+in an irreversible way.
+
+It will always output the same thing given the same input.
+Otherwise, it wouldn't be a function. But it also outputs
+something that we cannot predict.
+
+Any change in the input, regardless of how small it is, will
+lead to a massive change in the output. So much that to qualify
+as a CHF:
+
+1. an input cannot be found for a given output;
+1. two inputs cannot be found that lead to a given output;
+1. two inputs cannot be found that have the same output[^2].
+
+If your secret is a password and you want to authenticate online,
+you do not need to give it out; a hash is enough.
+The website can verify that it matches the hash stored
+at registration. If the website gets caught in a security break
+and the hashes are leaked, the attacker *only* gets the hashes
+but not the actual passwords.
 
     ### Commitments
 > Why did the cryptographic commitment go to therapy? Because
@@ -152,6 +178,7 @@ it had trust issues and couldn’t open up!
 
 [^1]: More precisely field elements since they are integers
 that belong to a finite field.
+[^2]: This property is stronger than the previous one.
 
 
 ## Sudoku

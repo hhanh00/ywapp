@@ -1,0 +1,32 @@
+## Description of the Synchronization Task
+
+- Note decryption
+- Commitment Tree Witnesses
+
+When you spend you need to create a spending Proof
+Spending proof includes statement that there is
+a note commitment for which you have the plain data.
+That note commitment was published before and
+is an output of a previous transaction.
+
+Nodes track all the outputs and their commitments.
+But you have to prove that your secret note commitment
+(you don't want to reveal which one) is one of them.
+
+The classic method for proving that your item
+is part of a list is to use a Merkle Proof.
+We'll explain what it is later.
+
+Here the twist is that the Merkle Proof is secret.
+We know how to make it because we know the 
+details of the note we spend. But we don't want
+to reveal it otherwise everyone will know it too.
+Therefore the Merkle Proof is a hidden parameter
+to the ZK circuit.
+
+However, we still need to be able to calculate
+the MP for any of our unspent note, at any
+block height.
+
+How we do that is the top of this section.
+

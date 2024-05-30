@@ -1,0 +1,65 @@
+import { Callout } from "nextra/components"
+
+Most of the time, you get blocks
+of note commitments that do not contain
+new received notes.
+In that case, you just want to update
+the witnesses with the new block data.
+Normally, that would require hashing
+the new note commitments and updating
+the commitment tree.
+
+Bridges are pre-calculated hashes
+that enable us to update the witnesses
+*without* computing any hash. 
+
+<Callout>
+Using a Bridge is **much** faster than
+doing the computation normally.
+</Callout>
+
+Even better, the bridges are calculated
+server side and can be used by any client
+anonymously, i.e. they don't leak privacy.
+
+With a Bridge, we want to capture the
+data needed to update witnesses
+and to update the tree state. We
+are not required to handle new received
+notes therefore we do not need the internal
+hash values.
+
+- For the witnesses, we need the first node
+of each level *if* it is the right node of
+a pair[^1].
+- For the tree state, we need the last node
+of each level *if* it is the left node of a 
+pair[^2].
+
+## Merging Bridges
+
+Continuous bridges can be merged by taking
+the head of the first bridge and the tail
+of the second one.
+
+## Applying a Bridge
+
+After a bridge is applied to the witnesses
+and the tree state is updated, we can
+continue processing nodes normally.
+
+Warp 2 mixes bridges and normal processing.
+We receive compact blocks that have both data,
+we search new received notes.
+
+If we find any, we use the normal processing
+path since we have to add new witnesses.
+Otherwise, we use the bridge to quickly update
+the existing witnesses.
+
+At the end, the tree reaches the same state.
+
+## Footnotes
+[^1]: If it is the left node, we have a new
+full pair.
+[^2]: That's the same logic as before.
