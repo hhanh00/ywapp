@@ -6,3 +6,35 @@ It is organized in three steps:
 - How do transparent transactions Zcash work;
 - How do shielded transactions work if the participants are honest;
 - How are participants made to be honest.
+
+## Summary
+
+- Each block has a list of transactions
+- Each transactions has 3 optional "bundles": transparent, sapling & orchard[^1]
+- Every bundle has inputs and outputs
+- Outputs are *notes*, i.e. coins
+- A transparent Output has
+    - a value in ZEC
+    - a recipient address
+- Inputs *reference* previous outputs
+- A Transparent input has
+    - a transaction ID
+    - an output index[^2]
+- Sapling and Orchard are shielded (=encrypted)
+- The note information is *encrypted*
+    - only the receiver (and optionally the sender) can decrypt it
+    - encrypted data is *opaque* to the rest of the network
+    - it cannot be used for validation!
+- Sapling & Orchard Inputs and Outputs are *hashes*
+- Hashes *hide* the real data but they are *not* random
+    - Hashes are calculated from the note information
+    - A ZKP guarantees that the calculation is correct
+- Outputs are commitments (=hash) of the note
+- Inputs are nullifiers (another hash) of the commitment
+- Each note has a unique nullifier. The same nullifier cannot be used twice:
+    it prevents double spending
+- Inputs and outputs are *not* linkable (the same note has different commitment & nullifier)
+
+## Footnotes
+[^1]: these are called pools.
+[^2]: because transactions can have more than one output
