@@ -19,10 +19,11 @@
   "tools": "Recovery Tools",
   "settings": "Settings",
   "audit": "Security & Audit",
+  "cex": "CEX - Binance, etc",
   "qr": { "display": "hidden" },
   "tech": "Technology",
   "halo2": { "display": "hidden" },
-  "plonk": "Plonk",
+  "plonk": { "display": "hidden" },
   "crypto": { "display": "hidden" },
   "warp": "Warp"
 }
