@@ -19,7 +19,7 @@
   "tools": "Recovery Tools",
   "settings": "Settings",
   "audit": "Security & Audit",
-  "cex": "CEX - Binance, etc",
+  "misc": "Miscellaneous",
   "qr": { "display": "hidden" },
   "tech": "Technology",
   "halo2": { "display": "hidden" },

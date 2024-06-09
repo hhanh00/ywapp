@@ -1,0 +1,43 @@
+import { Callout } from "nextra/components"
+
+Transparent wallets have the concept of a *one-time address*, which is supposed
+to receive funds only once. On the blockchain, this address appears only once in
+each direction, resulting in a transaction history that is limited to a maximum
+of two entries: one deposit and one withdrawal. This process significantly
+reduces the traceability of transactions, thereby enhancing the wallet's
+anonymity.
+
+However, they have multiple issues. 
+
+1. Every new transparent address slows down synchronization. Transparent
+synchronization is much quicker than shielded synchronization since the remote
+server can use a database index, but it is not cost-free. 
+1. The wallet must keep the derivation path of the one-time addresses;
+otherwise, it will regenerate the same address twice. However, when the user
+recovers from the seed phrase or transfers from another wallet, they will often
+not know which paths they used. This happened to most users of Zecwallet when
+they brought their wallet over.
+1. The new wallet can scan a range of derivation paths, but this may only return
+some of the one-time addresses[^1], or consider a one time address unused when
+it was already handed out[^2]. All in all, it is much more preferable to use
+Zcash's native privacy mechanism: Shielded addresses.
+1. Chain analysis tools use powerful heuristics that defeat one-time addresses.
+Often, they can link transactions based on other characteristics such as time
+and amount.
+
+The only use case I can think of is a CEX that only supports transparent
+addresses. In this case, you may be interested in the workflow described in the
+section [CEX](./cex).
+
+<Callout type="info"> Ywallet is unlikely to directly support one-time
+addresses. </Callout>
+
+**Users are urged to shield their funds instead.**
+
+The [Keytool](/tools/key_derivation) and the [Sweep](/tools/sweep) are useful
+tools for working with them.
+
+---
+[^1]: There may be a more extensive range of unused addresses than expected.
+[^2]: They could have given out one-time addresses that do not have transactions
+yet. 

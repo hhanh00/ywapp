@@ -1,0 +1,27 @@
+import { Callout } from "nextra/components"
+
+Seed phrases or, more accurately, mnemonics[^1] are not part of the protocol.
+Bitcoin core (bitcoind) and many full-node apps do not use them.
+
+They provide a convenient way to represent an integer with 128 to 256 bits. Seed
+phrases range from 12 words (128-bit integer) to 24 words (256-bit integer).
+
+The most common type of seed phrase has 24 words.
+
+These words are not random. They are chosen from a list of 2048 words in various
+languages, such as 'apple ', 'banana ', 'car ', 'dog ', etc. By construction, a
+seed phrase depends on the language. You cannot translate a seed phrase in
+English to Spanish by translating each word.
+
+The seed phrase contains a checksum. Every combination of 24 words, even if they
+all come from the correct list, is not a valid seed.
+
+In conclusion, you should always write a seed phrase precisely as given.
+
+<Callout type="warning">
+Capitalization, spelling, spaces, etc. are all significant.
+</Callout>
+
+---
+
+[^1]: BIP-39 standardizes seed phrases.
