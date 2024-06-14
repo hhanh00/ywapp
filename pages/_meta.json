@@ -25,5 +25,6 @@
   "halo2": { "display": "hidden" },
   "plonk": { "display": "hidden" },
   "crypto": { "display": "hidden" },
-  "warp": "Warp"
+  "warp": "Warp",
+  "poll": "Coin Weighted Poll"
 }

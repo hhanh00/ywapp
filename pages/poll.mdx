@@ -1,0 +1,65 @@
+import { Callout } from "nextra/components"
+
+## Description
+Coin Weight Polling is a multiple-choice poll (no write-in) where responders
+commit a certain amount of ZEC to their answer without spending it. 
+Their answer is weighted accordingly.
+
+- Pro: The poll is anonymous and sybill resistant; 
+- Con: Someone who commits more
+ZEC has more weight. It does not work like a democracy. 
+
+<Callout>
+The vote is not
+encrypted. Anyone can see the votes but not who made them. Responders can split
+their funds and vote as many times as they want.
+</Callout>
+
+The questions are TBD. At the moment, the idea is to poll the mining reward
+distribution.
+
+Example: Alice has 10 ZEC. Her preference is for a 80 % miner, 7% ECC 5% ZF 8%
+ZCG She allocates her voting power as follows: 8 miner, 0.7 ECC, 0.5 ZF, 0.8 ZCG
+
+There is no minimum amount. Any zatoshis count.
+
+<Callout type="error">
+The poll is about the entire
+mining award. **Do not forget to allocate votes to the miners!**
+</Callout>
+
+> A website will show the tally in real time.
+
+## Polling Process
+
+The poll will run for ~ 1 week (TBD). You should ensure you have new funds in the
+Orchard Pool at the start of the week. 
+
+1. Old notes are not eligible[^1]. But you can move your funds by self-transferring. 
+1. You have to keep the notes until the end of the week. You can spend it after
+without affecting your voting power.
+1. After that, you will have some time to cast your choice by associating your
+notes with one of the award recipients (Miners, ZF, ZCG, etc.).
+1. You cannot split a note between two recipients. Therefore, you need to do any
+splits before the week is over.
+1. *Your ballot does not use your spending key*.
+1. The nullifier is different from the "normal" nullifier. Your ballot is not
+linkable[^2] to your ZEC.
+
+<Callout>
+There will be a UI in Ywallet for that.
+</Callout>
+
+## Disclaimer
+
+The mechanism/technology is based on the Coin Voting Proposal (under ZIP review)
+and is **not audited** at this time.
+
+For additional safety, the ballot is **not signed with your spending key**.
+In fact, it could be created with only the viewing key.
+
+---
+[^1]: We would
+have to scan the whole blockchain to create the ballot if every note were
+eligible.
+[^2]: As far as I know, but there is no security review of this statement.
