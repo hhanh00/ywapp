@@ -27,23 +27,26 @@ export function VoteChart() {
     }
     const s = JSON.stringify(votes)
     return (
-        <div>           
-            <Bar
-        data={{
-          labels: ["Miners", "ECC", "ZCG", "ZF"],
-          datasets: [
-            {
-              label: "% of votes",
-              data: votes
-            },
-          ]
-        }}
-        height={300}
-        width={500}
-        options={{
-          maintainAspectRatio: false
-        }}
-      /> </div>
+        <>
+            <div height={800}
+                width={500}>
+                <Bar
+                    data={{
+                        labels: ["Miners", "ECC", "ZCG", "ZF"],
+                        datasets: [
+                            {
+                                label: "% of votes",
+                                data: votes
+                            },
+                        ]
+                    }}
+                    options={{
+                        maintainAspectRatio: false
+                    }}
+                />
+            </div>
+            <div>Total voting power: {total / 100000000} ZEC</div>
+        </>
     )
 }
 
