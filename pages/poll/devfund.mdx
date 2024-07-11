@@ -1,0 +1,60 @@
+import { useState, useEffect } from 'react'
+import { Callout } from "nextra/components"
+
+export function ElectionJson() {
+    const [data, setData] = useState([])
+    useEffect(() => {
+        async function f() {
+            let api = await fetch('https://vote.zcash-infra.com/devfund-proposals')
+            let results = await api.json()
+            setData(results)
+        }
+        f()
+    }, [])
+    return <pre>{JSON.stringify(data, null, 2)}</pre>
+}
+
+## Election Definition
+
+<ElectionJson/>
+
+## FAQ
+
+1. Who can vote? 
+To vote, you must have funds in the Orchard Pool created after block height 
+2540000 and before block height 2557150, i.e. *The Registration Window RW*.
+Moreover, the funds must be unspent as of block height 2557150.
+1. If I don't have funds in the *The Registration Window* can I still
+participate?
+No, the window is closed now. Even if you move funds, it will not be 
+eligible. You may have some funds in the RW, it may be worth checking.
+1. Can I spent my funds now?
+Yes, moving funds after the RW has no effect on your voting power.
+1. Can I vote for more than one proposal?
+Yes, but with different notes. You simply repeat the voting process.
+1. What *weight* does my vote have?
+Your vote is weighted by *the total amount of coins of the notes* you
+spent to cast it.
+
+## How do I vote?
+    - Use Ywallet version 1.6.3 from github 
+https://github.com/hhanh00/zwallet/releases/tag/v1.6.3%2B2
+or the mobile versions on the Google and Apple Stores.
+    - Go to the More tab and select Vote
+    - Enter the URL: https://vote.zcash-infra.com/devfund-proposals
+    - Select the note or notes
+    - Select the proposal
+    - Submit
+![Vote](./2024-07-11_10-00-00.gif)
+<Callout>
+The generation of the ballot make take a few minutes depending
+on how many notes you use and the platform.
+</Callout>
+
+## Disclaimer
+
+The mechanism/technology is based on the Coin Voting Proposal (under ZIP review)
+and is **not audited** at this time.
+
+For additional safety, the ballot is **not signed with your spending key**.
+In fact, it could be created with only the viewing key.
