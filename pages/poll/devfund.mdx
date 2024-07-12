@@ -1,11 +1,25 @@
 import { useState, useEffect } from 'react'
 import { Callout } from "nextra/components"
 
-export function ElectionJson() {
+## Polls
+
+```mermaid
+gantt
+    title Devfund Polls
+    axisFormat %m-%d
+    section Poll 1 (Same snapshot as test)
+        Snapshot        :a1, 2014-06-13, 15d
+        Vote            :after a1, 17d
+    section Poll 2
+        Snapshot        :a2, 2014-06-13, 30d
+        Vote            :after a2, 2d
+```
+
+export function ElectionJson(props) {
     const [data, setData] = useState([])
     useEffect(() => {
         async function f() {
-            let api = await fetch('https://vote.zcash-infra.com/devfund-proposals')
+            let api = await fetch(`https://vote.zcash-infra.com/${props.id}`)
             let results = await api.json()
             setData(results)
         }
@@ -14,9 +28,29 @@ export function ElectionJson() {
     return <pre>{JSON.stringify(data, null, 2)}</pre>
 }
 
-## Election Definition
+## Poll 1
 
-<ElectionJson/>
+<ElectionJson id="devfund-proposals"/>
+
+The first poll uses the snapshot height of the trial run. You do not have
+to move your funds to participate. It closes on Jul 15th.
+
+Use this vote url: `https://vote.zcash-infra.com/devfund-proposals`
+
+## Poll 2
+
+<ElectionJson id="devfund-props"/>
+
+The second poll takes the snapshot at height 2574200. It closes on Jul 15th.
+
+Use this vote url: `https://vote.zcash-infra.com/devfund-props`
+
+<Callout>
+There are TWO polls to allow the highest number of people to participate.
+Some people were not aware that the first poll snapshot was already taken
+and are unable to participate. We are running a second poll *concurrently*
+to allow them to join the vote.
+</Callout>
 
 ## FAQ
 
